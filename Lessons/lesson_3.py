@@ -34,7 +34,7 @@ str_ = input('Enter a string: ')
 def lowercase_and_uppercase_letters(value: str) -> (int, int):
     upper = sum([1 for el in value if el in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'])
     lower = sum([1 for el in value if el in 'abcdefghijklmnopqrstuvwxyz'])
-    return 'Number of uppercase letters {} and lowercase letters {}'.format(upper, lower)
+    return 'Number of uppercase letters = {} and lowercase letters = {}'.format(upper, lower)
 
 
 print(lowercase_and_uppercase_letters(str_))
