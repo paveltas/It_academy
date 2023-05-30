@@ -1,4 +1,4 @@
-# Найти самое длинное слово в введенном предложении.
+# Найти самое длинное слово в веденном предложении.
 # Учтите что в предложении есть знаки препинания.
 
 str_ = input('Enter a string: ')
@@ -20,20 +20,21 @@ str_ = input('Enter a string: ')
 
 def only_unique_characters(value: str) -> str:
     new_str = ''.join(value.split())
-    return ''.join([el for i, el in enumerate(new_str) if el not in new_str[:i]])
+    dct_ = {el: 0 for el in new_str}
+    return ''.join(k for k in dct_)
 
 
 print('String with only unique characters ', only_unique_characters(str_))
 
-# Посчитать количество строчных (маленьких) и прописных (больших) букв в введенной строке.
+# Посчитать количество строчных (маленьких) и прописных (больших) букв в веденной строке.
 # Учитывать только английские буквы.
 
 str_ = input('Enter a string: ')
 
 
 def lowercase_and_uppercase_letters(value: str) -> (int, int):
-    upper = sum([1 for el in value if el in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'])
-    lower = sum([1 for el in value if el in 'abcdefghijklmnopqrstuvwxyz'])
+    upper = sum(1 for el in value if ord(el) in range(65, 91))
+    lower = sum(1 for el in value if ord(el) in range(97, 123))
     return 'Number of uppercase letters = {} and lowercase letters = {}'.format(upper, lower)
 
 
