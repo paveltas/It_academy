@@ -19,9 +19,7 @@ str_ = input('Enter a string: ')
 
 
 def only_unique_characters(value: str) -> str:
-    new_str = ''.join(value.split())
-    dct_ = {el: 0 for el in new_str}
-    return ''.join(k for k in dct_)
+    return ''.join(dict.fromkeys(value.replace(' ', '')))
 
 
 print('String with only unique characters ', only_unique_characters(str_))
@@ -33,8 +31,8 @@ str_ = input('Enter a string: ')
 
 
 def lowercase_and_uppercase_letters(value: str) -> (int, int):
-    upper = sum(1 for el in value if ord(el) in range(65, 91))
-    lower = sum(1 for el in value if ord(el) in range(97, 123))
+    upper = sum(1 for el in value if 65 <= ord(el) <= 91)
+    lower = sum(1 for el in value if 97 <= ord(el) <= 123)
     return 'Number of uppercase letters = {} and lowercase letters = {}'.format(upper, lower)
 
 
