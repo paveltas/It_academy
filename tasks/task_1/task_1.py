@@ -67,11 +67,23 @@ print("exponentiation ->", exponentiation(14.4, 5.3, 3.3))
 
 
 # Определить знак 32-битного числа с помощью операции &.
+<<<<<<< HEAD
 def sign(value: int) -> str:
     return "+" if 1 & (value >> 31) == 0 else "-"
 
 
 print("sign ->", sign(147483648))
+=======
+def sign(value: int) -> int:
+    if value == 0:
+        return 0
+    if value & 0x80000000 == 0:
+        return 1
+    return -1
+
+
+print("sign ->", sign(-1431655765))
+>>>>>>> origin/main
 
 
 # Умножить целочисленное значение на -1 с помощью битовых операций и сложения.
@@ -93,16 +105,27 @@ print("check_32_even_bit_set ->", check_32_even_bit_set(0xAAAAAAAA))
 
 # Посчитать количество бит в 32-х битном числе, установленных в ноль.
 def calculate_32_zero_bits(value: int) -> int:
+<<<<<<< HEAD
     return format(value, "b").count("0")
 
 
 print("calculate_32_zero_bits ->", calculate_32_zero_bits(345678))
+=======
+    return format(~value & 0xFFFFFFFF, "b").count("1")
+
+
+print("calculate_32_zero_bits ->", calculate_32_zero_bits(16))
+>>>>>>> origin/main
 
 
 # Упаковать два целочисленных значения в 8 бит.
 # Первое число должно располагаться в 4 младших битах, второе число в - 4 старших.
 def pack_4_4(first: int, second: int) -> int:
+<<<<<<< HEAD
     return first | (second << 4)
+=======
+    return (first & 0b1111) | ((second & 0b1111) << 4)
+>>>>>>> origin/main
 
 
 print("pack_4_4 ->", pack_4_4(13, 12))
@@ -111,7 +134,11 @@ print("pack_4_4 ->", pack_4_4(13, 12))
 # Распоковать два целочисленных значения из 8 бит.
 # Первое число должно располагаться в 4 младших битах, второе число в - 4 старших.
 def unpack_4_4(value: int) -> Tuple[int, int]:
+<<<<<<< HEAD
     return value & 0b00001111, value >> 4
+=======
+    return value & 0b1111, (value >> 4) & 0b1111
+>>>>>>> origin/main
 
 
 print("unpack_4_4 ->", unpack_4_4(205))
@@ -127,10 +154,17 @@ print("clamp ->", clamp(15.4, 1.6, 15.3))
 
 # Ограничить число заданным интервалом. Нижняя граница может быть как меньше, так и больше верхней.
 def clamp_any(value: float, low: float, high: float) -> float:
+<<<<<<< HEAD
     return max(min(high, value), low) if high > low else max(min(low, value), high)
 
 
 print("clamp_any ->", clamp_any(5.4, 15.6, 6.8))
+=======
+    return clamp(value, low, high) if high > low else clamp(value, high, low)
+
+
+print("clamp_any ->", clamp_any(6.1, 9.4, 6.2))
+>>>>>>> origin/main
 
 
 # Вернуть True, если число нечетно и входит в интервал от -10 до 10.
@@ -191,7 +225,11 @@ def int_to_float(value: int) -> float:
 
 # Вернуть наименьшее целое число без использования условных операторов и встроенных функций.
 def min_raw(first: int, last: int) -> int:
+<<<<<<< HEAD
     return (first > last) * last + (last > first) * first
+=======
+    return 2 * first - (first + last - ((first - last) ** 2) ** 0.5) / 2
+>>>>>>> origin/main
 
 
 print("min_raw ->", min_raw(-2, 4))
