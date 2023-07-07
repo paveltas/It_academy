@@ -5,6 +5,7 @@
 '''
 
 from typing import Any, Dict, Iterable, List, Tuple
+import copy
 
 
 # Сконструировать и вернуть список из переданных аргументов.
@@ -79,9 +80,8 @@ print('build_list_from_value_and_length ->', build_list_from_value_and_length([1
 
 # Удалить из списка заданный элемент.
 def remove_value_from_list(values: List, value_to_remove: Any) -> List:
-    lst = values
-    lst.remove(value_to_remove)
-    return lst
+    values.remove(value_to_remove)
+    return values
 
 
 print('remove_value_from_list ->', remove_value_from_list([1, 'word', {2, 4, 'open'}], 'word'))
@@ -208,9 +208,8 @@ print('build_dict_from_two_lists ->', build_dict_from_two_lists(['first', 'secon
 # Сформировать из двух словарей и вернуть его. В случае, если ключи совпадают,
 # использовать значение из второго словаря (dict.update).
 def build_dict_using_update(first: Dict, second: Dict) -> Dict:
-    new_dict = first
-    new_dict.update(second)
-    return new_dict
+    first.update(second)
+    return first
 
 
 print('build_dict_using_update ->',
@@ -256,7 +255,7 @@ print('merge_two_dicts ->', merge_two_dicts({'a': 1, 'b': 2, 'c': 4}, {'b': 'two
 # - объединить значения в одно множество, если оба значения - множества;
 # - объединить значения в список в любом другом случае.
 def deep_merge_two_dicts(first: Dict, second: Dict) -> Dict:
-    result = dict(first)
+    result = dict(copy.deepcopy(first))
     for k, v in second.items():
         if k in result:
             if isinstance(result[k], dict) and isinstance(v, dict):
@@ -303,11 +302,10 @@ print('get_key_value_pairs ->', get_key_value_pairs(dict1))
 
 # Реверсировать и вернуть словарь.
 def reverse_dict(dictionary: Dict) -> Dict:
-    el = reversed(dictionary.items())
-    return dict(el)
+    return dict(reversed(dictionary.items()))
 
 
-print('reverse_dict ->', reverse_dict(dict1))
+print('reverse_dict ->', reverse_dict({1: 'a', 2: 'b'}))
 
 
 # Удалить из словаря элементы, имеющие пустые значения (None, '', [], {}).
@@ -321,12 +319,14 @@ print('clear_dummy_elements ->', clear_dummy_elements({1: None, 2: '', 3: [], 4:
 # Удалить из словаря дублирующиеся и пустые элементы.
 def clear_dummy_and_duplicate_elements(dictionary: Dict) -> Dict:
     new_dct = {}
-    new_dct = {k: v for k, v in dictionary.items() if v not in (None, '', [], {}) and v not in new_dct}
+    for k, v in dictionary.items():
+        if v and v not in set(new_dct.values()):
+            new_dct[k] = v
     return new_dct
 
 
 print('clear_dummy_and_duplicate_elements ->',
-      clear_dummy_and_duplicate_elements({1: None, 2: '', 3: [], 4: {}, 5: '1'}))
+      clear_dummy_and_duplicate_elements({1: None, 2: '', 3: [], 4: {}, 5: '1', 6: '1', 8: '2'}))
 
 
 # Обменять в словаре клчи и значения (в качестве значений могут выступать только неизменяемые значения).
