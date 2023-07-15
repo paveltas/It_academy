@@ -44,10 +44,7 @@ print(tuple_from_args(1, '2', False, 4.21, {2: 3}))
 def dct_group_params(**kwargs):
     dct = {}
     for k, v in kwargs.items():
-        if type(v) not in dct:
-            dct[type(v)] = [[k, v]]
-        else:
-            dct[type(v)].append([k, v])
+        dct.setdefault(type(v), []).append([k, v])
     return dct
 
 
@@ -67,11 +64,12 @@ name_kwargs = {"name1": "Charley", 'name2': 'Thomas'}
 
 def format_string(s, *args, **kwargs):
     for i, arg in enumerate(args):
+        s = s.replace("**", "*")
         s = s.replace(f"*{i}*", str(arg))
         s = s.replace(f"*{-len(args) + i}*", str(arg))
     for name, value in kwargs.items():
         s = s.replace(f"*{name}*", str(value))
-    return s.replace("**", "*")
+    return s
 
 
 print(format_string(str_, *name_args, **name_kwargs))

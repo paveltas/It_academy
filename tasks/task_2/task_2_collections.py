@@ -5,6 +5,8 @@
 '''
 
 from typing import Any, Dict, Iterable, List, Tuple
+from numbers import Number
+from itertools import zip_longest
 import copy
 
 
@@ -394,20 +396,18 @@ print('group_dict_elements_by_key_type_and_sort ->',
 # Подсчитать количество элементов словаря, имеющих числовой тип, значение которых находится
 # в интервале [-10, 25].
 def count_dict_elements(dictionary: Dict) -> int:
-    return sum([1 for v in dictionary.values() if isinstance(v, (int, float)) and -10 <= v <= 25])
+    return sum([1 for v in dictionary.values() if isinstance(v, Number) and -10 <= v <= 25])
 
 
-print('count_dict_elements ->', count_dict_elements({"3": 3, 1: 1, 2.2: 2, "4": 4, 5: 5, 6.6: '6'}))
+print('count_dict_elements ->', count_dict_elements({"3": -10, '1': 1, '2.2': 2, "4": 4, '5': 25.1, '6.6': 66}))
 
 
 # Построить и возвратить словарь из двух списков. Количество ключей может превышать
 # количество значений. В этом случае (для ключей, оставшихся без соответствующей пары)
 # в качестве значений использовать значение None.
 def build_dict_from_two_unaligned_lists(keys: List, values: List) -> Dict:
-    dct = {}
-    for i, key in enumerate(keys):
-        dct[key] = values[i] if i < len(values) else dct.get(key)
-    return dct
+    value_copy = copy.deepcopy(values)
+    return {k: v for k, v in zip_longest(keys, value_copy, fillvalue=None)}
 
 
 print('build_dict_from_two_unaligned_lists ->', build_dict_from_two_unaligned_lists([1, 2, 3, 4], ['a', 'b', 'c']))
@@ -417,14 +417,13 @@ print('build_dict_from_two_unaligned_lists ->', build_dict_from_two_unaligned_li
 # количество значений. В этом случае (для ключей, оставшихся без соответствующей пары)
 # в качестве значений использовать значение, заданное по-умолчанию.
 def build_dict_from_two_unaligned_lists_and_default(keys: List, values: List, default: Any) -> Dict:
-    dct = {}
-    for i, key in enumerate(keys):
-        dct[key] = values[i] if i < len(values) else dct.get(key, default)
-    return dct
+    value_copy = copy.deepcopy(values)
+    default_copy = copy.deepcopy(default)
+    return {k: v for k, v in zip_longest(keys, value_copy, fillvalue=default_copy)}
 
 
 print('build_dict_from_two_unaligned_lists_and_default ->',
-      build_dict_from_two_unaligned_lists_and_default([1, 2, 3, 4], ['a', 'b', 'c'], 0))
+      build_dict_from_two_unaligned_lists_and_default([1, 2, 3, 4], ['a', 'b', 'c'], 'default'))
 
 
 # Построить и возвратить словарь из двух iterable объектов. Количество ключей может превышать
