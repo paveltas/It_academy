@@ -4,10 +4,10 @@
 Примечание: входные параметры ни в одной из задач не должны быть модифицированы.
 '''
 
-from typing import Any, Dict, Iterable, List, Tuple
-from numbers import Number
-from itertools import zip_longest
 import copy
+from itertools import zip_longest
+from numbers import Number
+from typing import Any, Dict, Iterable, List, Tuple
 
 
 # Сконструировать и вернуть список из переданных аргументов.
@@ -383,7 +383,7 @@ print('group_dict_elements_by_key_type_and_sort ->',
 # Подсчитать количество элементов словаря, имеющих числовой тип, значение которых находится
 # в интервале [-10, 25].
 def count_dict_elements(dictionary: Dict) -> int:
-    return sum([1 for v in dictionary.values() if isinstance(v, Number) and -10 <= v <= 25])
+    return sum(1 for v in dictionary.values() if isinstance(v, Number) and -10 <= v <= 25)
 
 
 print('count_dict_elements ->', count_dict_elements({"3": -10, '1': 1, '2.2': 2, "4": 4, '5': 25.1, '6.6': 66}))
