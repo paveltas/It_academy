@@ -4,10 +4,10 @@
 Примечание: входные параметры ни в одной из задач не должны быть модифицированы.
 '''
 
-from typing import Any, Dict, Iterable, List, Tuple
-from numbers import Number
-from itertools import zip_longest
 import copy
+from itertools import zip_longest
+from numbers import Number
+from typing import Any, Dict, Iterable, List, Tuple
 
 
 # Сконструировать и вернуть список из переданных аргументов.
