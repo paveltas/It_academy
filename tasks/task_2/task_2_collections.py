@@ -359,18 +359,12 @@ print('sort_dict_backward_with_int_keys ->', sort_dict_backward_with_int_keys({4
 # В качестве ключей могут выступать: целые числа, дробные числа и строки.
 # Приоритет сортировки групп (от высшего к низшему): целые числа, дробные числа, строки.
 def group_dict_elements_by_key_type(dictionary: Dict) -> Dict:
-    dct_int, dct_float, dct_str = {}, {}, {}
-    for k, v in dictionary.items():
-        if isinstance(k, int):
-            dct_int[k] = v
-        elif isinstance(k, float):
-            dct_float[k] = v
-        else:
-            dct_str[k] = v
-    return {**dct_int, **dct_float, **dct_str}
+    priority = {int: 1, float: 2, str: 3}
+    return {k: dictionary[k] for k in sorted(dictionary, key=lambda x: priority.get(type(x), 4))}
 
 
-print('group_dict_elements_by_key_type ->', group_dict_elements_by_key_type({"3": 3, 1: 1, 2.2: 2}))
+print('group_dict_elements_by_key_type ->',
+      group_dict_elements_by_key_type({"3": 3, 1: 1, 2.2: 2, "4": 4, 5: 5, 6.6: 6}))
 
 
 # Вернуть словарь, элементы которого сгруппированы по типу ключа.
@@ -378,15 +372,8 @@ print('group_dict_elements_by_key_type ->', group_dict_elements_by_key_type({"3"
 # Приоритет сортировки групп (от высшего к низшему): целые числа, дробные числа, строки.
 # Внутри каждой из групп отсортировать элементы по значениям ключа в обратном порядке.
 def group_dict_elements_by_key_type_and_sort(dictionary: Dict) -> Dict:
-    dct_int, dct_float, dct_str = {}, {}, {}
-    for k, v in dictionary.items():
-        if isinstance(k, int):
-            dct_int[k] = v
-        elif isinstance(k, float):
-            dct_float[k] = v
-        else:
-            dct_str[k] = v
-    return {**reverse_dict(dct_int), **reverse_dict(dct_float), **reverse_dict(dct_str)}
+    priority = {int: 1, float: 2, str: 3}
+    return {k: dictionary[k] for k in sorted(dictionary, key=lambda x: (-priority.get(type(x), 4), x), reverse=True)}
 
 
 print('group_dict_elements_by_key_type_and_sort ->',
