@@ -405,8 +405,7 @@ print('build_dict_from_two_unaligned_lists ->', build_dict_from_two_unaligned_li
 # в качестве значений использовать значение, заданное по-умолчанию.
 def build_dict_from_two_unaligned_lists_and_default(keys: List, values: List, default: Any) -> Dict:
     value_copy = copy.deepcopy(values)
-    default_copy = copy.deepcopy(default)
-    return {k: v for k, v in zip_longest(keys, value_copy, fillvalue=default_copy)}
+    return {k: v for k, v in zip_longest(keys, value_copy, fillvalue=copy.deepcopy(default))}
 
 
 print('build_dict_from_two_unaligned_lists_and_default ->',
