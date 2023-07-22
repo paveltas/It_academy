@@ -57,14 +57,14 @@ print(dct_group_params(a=1, b=2.2, c='3', d={'a': 4}, e=5, f='6'))
 # отрицательная индексация.
 # Вместо *name* должен быть подставлен именованный параметр с именем name.
 
-str_ = "**Hi**, *-1* and *name1*. **Hello**, *0* and *name2*."
+str_ = "**Hi**, **-1* and **name1**. **Hello**, *0** and **name2*."
 name_args = ['Jacob', 'Oliver', 'Jack']
 name_kwargs = {"name1": "Charley", 'name2': 'Thomas'}
 
 
 def format_string(s, *args, **kwargs):
+    s = s.replace("**", "*")
     for i, arg in enumerate(args):
-        s = s.replace("**", "*")
         s = s.replace(f"*{i}*", str(arg))
         s = s.replace(f"*{-len(args) + i}*", str(arg))
     for name, value in kwargs.items():
