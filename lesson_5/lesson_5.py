@@ -23,7 +23,10 @@ print('pairs_of_elements ->', pairs_of_elements(lst))
 
 
 def unique_numbers(value: list) -> list:
-    return [el for el in dict.fromkeys(value)]
+    dct = {}
+    for el in value:
+        dct[el] = dct.get(el, 0) + 1
+    return [k for k, v in dct.items() if v == 1]
 
 
 print('unique_numbers ->', unique_numbers([8, 1, 2, 3, 1, 1, 2, 10, 2, 3, 3, 4, 5, 6]))
@@ -63,7 +66,7 @@ print("['a', 'b', 'c'] =", tuple_)
 # Создайте кортеж ('a', 'b', 'c'), И сделайте из него список.
 
 
-tuple_ = ('a', 'b', 'c')
+tuple_ = 'a', 'b', 'c'
 
 lst = list(tuple_)
 
@@ -81,7 +84,7 @@ print("a, b, c = 'a', 2, 'python' ->", 'a = {}, b = {}, c = {}'.format(a, b, c))
 # Убедитесь что len() исходного кортежа возвращает 1.
 
 
-tuple_ = ((1, 2, 3),)
+tuple_ = (1, 2, 3),
 
 for el in tuple_[0]:
     print('tuple_ el ->', el)
@@ -125,14 +128,14 @@ cities = ['Могилев', 'Париж', 'Брест', 'Казань', 'Нью-
 # далее идут M запросов — названия каких-то M городов, перечисленных выше.
 
 
-first_number = int(input('Enter first number '))
+number_of_countries = int(input('Enter first number '))
 
-new_countries_dct = {k: v for i, (k, v) in enumerate(countries.items()) if i < first_number}
+new_countries_dct = {k: v for i, (k, v) in enumerate(countries.items()) if i < number_of_countries}
 print('\n'.join(f'{key} {" ".join(value)}' for key, value in new_countries_dct.items()), end='\n\n')
 
-second_number = int(input('Enter second number '))
+number_of_cities = int(input('Enter second number '))
 
-new_cities_set = set(cities[:second_number])
+new_cities_set = set(cities[:number_of_cities])
 print('\n'.join(new_cities_set), end='\n\n')
 
 # Выходные данные
@@ -155,12 +158,12 @@ for city in new_cities_set:
 # Определите, сколько различных слов содержится в этом тексте.
 
 
-str_ = '''abc abcd abc   abcdefg
+str_ = '''abc abcd Abc   abcdefg
         abcde abcdef   abcd'''
 
 
 def set_unique_words(value: str) -> int:
-    return len(set(value.split()))
+    return len(set(value.lower().split()))
 
 
 print('set_unique_words ->', set_unique_words(str_))
@@ -198,12 +201,12 @@ print('set_difference ->', set_difference([1, 2, 3], [3, 4, 5]))
 # Затем - количество языков, которые знает хотя бы один школьник, на следующих строках - список таких языков.
 
 
-students = int(input('Enter number of students '))
+number_of_students = int(input('Enter number of students '))
 dct = {}
-for n in range(students):
-    languages = int(input('Enter number of student languages '))
+for n in range(number_of_students):
+    number_of_languages = int(input('Enter number of student languages '))
     set_ = set()
-    for m in range(languages):
+    for m in range(number_of_languages):
         set_.add(input('Enter a language '))
     dct[n] = set_
 
@@ -252,8 +255,7 @@ print('lst.pop(1) =', lst.pop(1))
 # Скопируйте список и добавьте в него элемент 2x так, чтобы в исходном списке этого элемента не было.
 
 
-new_lst = lst.copy()
-new_lst.append('2x')
+new_lst = lst.copy() + ['2x']
 print('lst, new_lst ->', lst, new_lst)
 
 
