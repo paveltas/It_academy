@@ -31,7 +31,7 @@ class LengthUnits:
     factor = 1
 
     def __init__(self, value):
-        if isinstance(value, (Number)):
+        if isinstance(value, Number):
             self.value = value * self.factor
         else:
             self.value = value.value
