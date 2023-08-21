@@ -112,44 +112,25 @@ print(a)
 # Дан список стран и городов каждой страны. Затем даны названия городов.
 # Для каждого города укажите, в какой стране он находится.
 # Учтите, что бывают ситуации когда город с таким называнием бывает в разных странах (Брест есть в Беларуси и Франции)
-
-
-countries = {
-    'Россия': {'Москва', 'Санкт-Петербург', 'Казань', 'Сочи'},
-    'США': {'Нью-Йорк', 'Лос-Анджелес', 'Чикаго', 'Майами'},
-    'Беларусь': {'Могилев', 'Брест', 'Гомель', 'Минск'},
-    'Франция': {'Париж', 'Лион', 'Ницца', 'Брест'},
-}
-cities = ['Могилев', 'Париж', 'Брест', 'Казань', 'Нью-Йорк', 'Сочи', 'Чикаго']
-
 # Входные данные
 # Программа получает на вход количество стран N. Далее идет N строк, каждая строка начинается с названия страны,
 # затем идут названия городов этой страны. В следующей строке записано число M,
 # далее идут M запросов — названия каких-то M городов, перечисленных выше.
-
-
-number_of_countries = int(input('Enter first number '))
-
-new_countries_dct = {k: v for i, (k, v) in enumerate(countries.items()) if i < number_of_countries}
-print('\n'.join(f'{key} {" ".join(value)}' for key, value in new_countries_dct.items()), end='\n\n')
-
-number_of_cities = int(input('Enter second number '))
-
-new_cities_set = set(cities[:number_of_cities])
-print('\n'.join(new_cities_set), end='\n\n')
-
 # Выходные данные
 # Для каждого из запроса выведите название страны, в котором находится данный город.
 
+cities_and_countries = {}
+for _ in range(int(input('Введите число стран. '))):
+    lst = input('Введите страну а затем города к ней относящиеся. ').split()
+    for el in lst[1:]:
+        cities_and_countries[el] = cities_and_countries.get(el, []) + [lst[0]]
 
-cities_in_new_countries = {value for values in new_countries_dct.values() for value in values}
+cities = []
+for _ in range(int(input('Введите число городов. '))):
+    cities.append(input('Введите название города. '))
 
-for city in new_cities_set:
-    for country in new_countries_dct:
-        if city in new_countries_dct[country]:
-            print(f'Город {city} есть в стране {country}.')
-    if city not in cities_in_new_countries:
-        print(f'Города {city} нет ни в одной стране, в указанных вами рамках.')
+for citi in cities:
+    print(f'Город {citi} есть в странах {", ".join(cities_and_countries[citi])}')
 
 # Множества
 
